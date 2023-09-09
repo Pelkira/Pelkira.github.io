@@ -8,27 +8,51 @@
         #container {
             position: relative;
         }
-        #arrow {
+        canvas {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div id="container">
         <!-- 画像を表示 -->
-        <img src="https://pelkira.github.io/valorant-map-haven.png">
-        <!-- 矢印を描画 -->
-        <div id="arrow" onclick="goToPage('https://pelkira.github.io/valorant-map-haven.png');">&#10148;</div>
+        <img id="image" src="https://pelkira.github.io/valorant-map-haven.png" onload="drawArrow()">
+        <!-- Canvas要素を配置 -->
+        <canvas id="arrowCanvas"></canvas>
     </div>
 
     <script>
-        // 矢印がクリックされたときに指定したページに遷移する関数
-        function goToPage(pageUrl) {
-            window.location.href = pageUrl;
+        // 画像要素とCanvas要素を取得
+        const image = document.getElementById('image');
+        const canvas = document.getElementById('arrowCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 画像が読み込まれた後に矢印を描画
+        function drawArrow() {
+            // 画像の幅と高さを取得
+            const w = image.width;
+            const h = image.height;
+
+            // 矢印の始点(a,b)と終点(c,d)を設定
+            const a = 100; // 適切な値に置き換えてください
+            const b = 100; // 適切な値に置き換えてください
+            const c = 200; // 適切な値に置き換えてください
+            const d = 200; // 適切な値に置き換えてください
+
+            // Canvasサイズを画像サイズに合わせる
+            canvas.width = w;
+            canvas.height = h;
+
+            // 画像をCanvasに描画
+            ctx.drawImage(image, 0, 0, w, h);
+
+            // 矢印を描画
+            ctx.strokeStyle = 'red'; // 矢印の色を設定
+            ctx.lineWidth = 2; // 矢印の線の太さを設定
+            ctx.beginPath();
+            ctx.moveTo(a, b);
+            ctx.lineTo(c, d);
+            ctx.stroke();
         }
     </script>
 </body>
