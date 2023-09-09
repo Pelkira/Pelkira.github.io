@@ -19,15 +19,6 @@
             height: auto;
         }
 
-        #arrow-link {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
         #coordinates {
             position: absolute;
             bottom: 10px;
@@ -38,6 +29,7 @@
             position: absolute;
             background-color: transparent;
             pointer-events: none;
+            z-index: 1;
         }
 
         .arrow {
@@ -48,20 +40,30 @@
             border-right: 5px solid transparent;
             border-bottom: 10px solid black;
             pointer-events: none;
+            z-index: 2;
         }
     </style>
 </head>
 <body>
     <div id="image-container">
         <img src="https://pelkira.github.io/valorant-map-haven.png" alt="Valorant Map Haven">
-        <a id="arrow-link" href="https://scrapbox.io/Pelkira/%E6%94%BB%E3%82%81%E3%80%80A%E3%82%B5%E3%82%A4%E3%83%88%E4%B8%AD_-%3E_A%E3%83%AA%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%83%E3%82%AF%E3%83%80%E3%82%A6%E3%83%B3_2b1c"></a>
-        <div class="line" style="left: a; top: b; width: c; height: d;"></div>
-        <div class="arrow" style="left: c; top: d;"></div>
+        <div class="line" id="line" style="left: 0; top: 0; width: 0; height: 0;"></div>
+        <div class="arrow" id="arrow" style="left: 0; top: 0;"></div>
+    </div>
+    <div>
+        始点(a, b): <input type="text" id="startPointX">, <input type="text" id="startPointY"><br>
+        終点(c, d): <input type="text" id="endPointX">, <input type="text" id="endPointY"><br>
     </div>
     <div id="coordinates">(0, 0)</div>
     <script>
         const imageContainer = document.getElementById('image-container');
         const coordinates = document.getElementById('coordinates');
+        const line = document.getElementById('line');
+        const arrow = document.getElementById('arrow');
+        const startPointXInput = document.getElementById('startPointX');
+        const startPointYInput = document.getElementById('startPointY');
+        const endPointXInput = document.getElementById('endPointX');
+        const endPointYInput = document.getElementById('endPointY');
 
         imageContainer.addEventListener('mousemove', (event) => {
             const rect = imageContainer.getBoundingClientRect();
@@ -69,6 +71,26 @@
             const y = event.clientY - rect.top;
             coordinates.textContent = `(${x.toFixed(2)}, ${y.toFixed(2)})`;
         });
+
+        startPointXInput.addEventListener('input', updateLine);
+        startPointYInput.addEventListener('input', updateLine);
+        endPointXInput.addEventListener('input', updateLine);
+        endPointYInput.addEventListener('input', updateLine);
+
+        function updateLine() {
+            const a = 10;
+            const b = 10;
+            const c = 100;
+            const d = 100;
+
+            line.style.left = a + 'px';
+            line.style.top = b + 'px';
+            line.style.width = (c - a) + 'px';
+            line.style.height = (d - b) + 'px';
+
+            arrow.style.left = c + 'px';
+            arrow.style.top = d + 'px';
+        }
     </script>
 </body>
 </html>
