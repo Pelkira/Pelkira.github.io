@@ -1,7 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* スタイルを追加するためのCSS */
+        #container {
+            position: relative;
+        }
+        #arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <div id="container">
+        <!-- 画像を表示 -->
+        <img src="https://pelkira.github.io/valorant-map-haven.png">
+        <!-- 矢印を描画 -->
+        <div id="arrow" onclick="goToPage('https://pelkira.github.io/valorant-map-haven.png');">&#10148;</div>
+    </div>
+
+    <script>
+        // 矢印がクリックされたときに指定したページに遷移する関数
+        function goToPage(pageUrl) {
+            window.location.href = pageUrl;
+        }
+    </script>
 </body>
 </html>
