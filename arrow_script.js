@@ -92,8 +92,11 @@ function drawArrows() {
 window.addEventListener('resize', resizeCanvasAndDrawArrows);
 
 function drawArrow(arrow) {
+    const scaleX = canvas.width / originalWidth;
+    const scaleY = canvas.height / originalHeight;
+	const scale = Math.min(scaleX, scaleY)
     const {fromx, fromy, tox, toy, hover, skill} = arrow;
-    const headlen = 20;
+    const headlen = 20 * scale;
     const angle = Math.atan2(toy-fromy, tox-fromx);
 
     const adjustedTox = tox - headlen * Math.cos(angle);
@@ -106,7 +109,7 @@ function drawArrow(arrow) {
     ctx.moveTo(fromx, fromy);
     ctx.lineTo(adjustedTox, adjustedToy);
     ctx.strokeStyle = hover ? '#00FFFF' : arrowColor;
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 4 * scale;
     ctx.stroke();
 
     ctx.beginPath();
@@ -119,8 +122,7 @@ function drawArrow(arrow) {
 
     if (hover) {
         ctx.shadowColor = '#00FFFF';
-        ctx.shadowBlur = 15;
-        ctx.stroke();
+        ctx.shadowBlur = 20 * scale;
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -137,6 +139,7 @@ canvas.onmousemove = function(e) {
     const y = e.clientY - rect.top;
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
+	console.log(x / scaleX, y / scaleY)
 
     let hoveredArrows = arrows.filter(arrow => 
         activeAgents.includes(arrow.agent) &&
