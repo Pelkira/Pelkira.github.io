@@ -66,6 +66,7 @@ function resizeCanvasAndDrawArrows() {
     drawArrows();
 }
 
+
 function drawArrows() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const scaleX = canvas.width / originalWidth;
@@ -159,10 +160,11 @@ canvas.onmousemove = function(e) {
     if (redraw) {
         drawArrows();
     }
-
+/*
     if (hoveredArrows.length === 0) {
         document.getElementById('hoverImage').style.display = 'none';
     }
+*/
 
     canvas.style.cursor = hoveredArrows.length > 0 ? 'pointer' : 'default';
 	

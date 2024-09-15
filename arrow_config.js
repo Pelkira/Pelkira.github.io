@@ -3,8 +3,8 @@ const imageConfigs = {
         src: "maps/Haven_atk.png",
         arrows: [
             {fromx: 50, fromy: 50, tox: 200, toy: 50, url: 'https://example.com', agent: 'Sova', skill: 'Sova-E', hoverImage: 'Agents/sova.png'},
-            {fromx: 50, fromy: 100, tox: 200, toy: 100, url: 'https://example.org', agent: 'Sova', skill: 'Sova-Q', hoverImage: 'path/to/hover_image2.jpg'},
-            {fromx: 50, fromy: 150, tox: 200, toy: 150, url: 'https://example.net', agent: 'Viper', skill: 'Viper-C', hoverImage: 'path/to/hover_image3.jpg'},
+            {fromx: 50, fromy: 100, tox: 200, toy: 100, url: 'https://example.org', agent: 'Sova', skill: 'Sova-Q', hoverImage: 'Agents/viper.png'},
+            {fromx: 50, fromy: 150, tox: 200, toy: 150, url: 'https://example.net', agent: 'Viper', skill: 'Viper-C', hoverImage: 'Agents/viper.png'},
             {fromx: 300, fromy: 600, tox: 800, toy: 300, url: 'https://example.net', agent: 'Viper', skill: 'Viper-C', hoverImage: 'Agents/viper.png'}
         ],
         agents: ['Sova', 'Viper', 'Viper2', 'Viper3','Viper4']
