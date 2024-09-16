@@ -191,7 +191,9 @@ canvas.onclick = function(e) {
     );
 
     if (clickedArrows.length > 0) {
-        window.location.href = clickedArrows[clickedArrows.length - 1].url;
+        //window.location.href = clickedArrows[clickedArrows.length - 1].url;
+        //window.location.target = clickedArrows[clickedArrows.length - 1].url;
+		window.open(clickedArrows[clickedArrows.length - 1].url, '_blank')
     }
 };
 
