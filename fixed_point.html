@@ -29,7 +29,7 @@
             left: 0;
         }
         #rightContent {
-            display: flex;
+            display: grid;
             flex-direction: column;
             margin-left: 20px;
         }
@@ -37,6 +37,7 @@
             display: flex;
             flex-wrap: wrap;
             height: 160px;
+            justify-content: start;
         }
         .agentIcon {
             width: 70px;
@@ -49,15 +50,15 @@
             opacity: 1;
         }
         #hoverImage {
-
-            max-width: 50vw; /* ビューポート幅の50% */
+            width: 50vw;
             margin-top: 10px;
+            justify-self: end;
         }
         #imageContainer {
             position: relative;
             display: inline-block;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            max-width: 45vw; /* ビューポート幅の50% */
+            width: 45vw;
         }
         #mainImage, #arrowCanvas {
             width: 100%;
