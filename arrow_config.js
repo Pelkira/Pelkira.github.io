@@ -25,8 +25,8 @@ const imageConfigs = {
 };
 
 const agentIcons = {
-    'Sova': 'Agents/sova.png',
-    'Viper': 'Agents/viper.png',
+    'Sova': 'agents/sova.png',
+    'Viper': 'agents/viper.png',
 };
 
 const skillColors = {
