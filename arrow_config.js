@@ -51,3 +51,30 @@ const skillColors = {
         'E': '#78ff69',
     }
 };
+
+const skillData = {
+    'Sova': {
+        'Q': {
+            color: '#69b4FF',
+            icon: 'skills/Sova-Q.png'
+        },
+        'E': {
+            color: '#FFa040',
+            icon: 'skills/Sova-E.png'
+        }
+    },
+    'Viper': {
+        'C': {
+            color: '#bcffb4',
+            icon: 'skills/Viper-C.png'
+        },
+        'Q': {
+            color: '#69FFb4',
+            icon: 'skills/Viper-Q.png'
+        },
+        'E': {
+            color: '#78ff69',
+            icon: 'skills/Viper-E.png'
+        }
+    }
+}

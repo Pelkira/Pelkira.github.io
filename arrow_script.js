@@ -7,6 +7,7 @@ const hoverImage = document.getElementById('hoverImage');
 
 let arrows = [];
 let activeAgents = [];
+let activeSkills = {};
 
 function getUrlParameter(name) {
     name = name.replace(/[$$]/, '\$$').replace(/[$$]/, '\$$');
@@ -22,6 +23,9 @@ if (config) {
     img.src = config.src;
     arrows = config.arrows;
     activeAgents = [...config.agents];
+    activeAgents.forEach(agent => {
+        activeSkills[agent] = [];
+    });
     createAgentIcons(config.agents);
 } else {
     console.error('Invalid image ID');
@@ -36,7 +40,27 @@ function createAgentIcons(agents) {
         icon.onclick = () => toggleAgent(agent, icon);
 
         const div = document.createElement('div');
-        div.appendChild(icon)
+        div.classList.add('agentContent');
+        div.display = 'flex';
+        div.flex_direction = 'column';
+        const skillIcons = document.createElement('div');
+        skillIcons.id = 'skillIcons-' + agent;
+        skillIcons.classList.add('skillIcons')
+        div.appendChild(icon);
+
+        Object.keys(skillData[agent]).forEach(key => {
+            skill = skillData[agent][key];
+            const skillIcon = document.createElement('img');
+            skillIcon.src = skill.icon;
+            skillIcon.alt = agent + '-' + skill;
+            skillIcon.classList.add('skillIcon', 'active', key);
+            skillIcon.id = 'skillIcon-' + agent + '-' + key;
+            skillIcon.onclick = () => toggleSkill(agent, key, skillIcon, true);
+            skillIcon.style.border = 'thin solid ' + skillData[agent][key]['color'];
+            skillIcons.appendChild(skillIcon);
+            activeSkills[agent].push(key);
+        });
+        div.appendChild(skillIcons);
         agentIconsContainer.appendChild(div);
     });
 }
@@ -49,7 +73,25 @@ function toggleAgent(agent, icon) {
         activeAgents.push(agent);
         icon.classList.add('active');
     }
+    Object.keys(skillData[agent]).forEach(key => {
+        skill = skillData[agent][key];
+        skillIcon = document.getElementById('skillIcon-' + agent + '-' + key);
+
+        toggleSkill(agent, key, skillIcon, false);
+    });
     drawArrows();
+}
+function toggleSkill(agent, key, skillIcon, redraw) {
+    if (activeSkills[agent].includes(key)) {
+        activeSkills[agent] = activeSkills[agent].filter(s => s !== key);
+        skillIcon.classList.remove('active');
+    } else {
+        activeSkills[agent].push(key);
+        skillIcon.classList.add('active');
+    }
+    if(redraw){
+        drawArrows();
+    }
 }
 let originalWidth, originalHeight;
 
@@ -75,7 +117,7 @@ function drawArrows() {
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
     
-    arrows.filter(arrow => activeAgents.includes(arrow.agent)).forEach(arrow => {
+    arrows.filter(arrow => activeSkills[arrow.agent].includes(arrow.skill)).forEach(arrow => {
         const scaledArrow = {
             fromx: arrow.fromx * scaleX,
             fromy: arrow.fromy * scaleY,
