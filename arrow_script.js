@@ -95,7 +95,7 @@ function drawArrow(arrow) {
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
 	const scale = Math.min(scaleX, scaleY)
-    const {fromx, fromy, tox, toy, hover, skill} = arrow;
+    const {fromx, fromy, tox, toy, hover, skill, agent} = arrow;
     const headlen = 20 * scale;
     const angle = Math.atan2(toy-fromy, tox-fromx);
 
@@ -103,7 +103,8 @@ function drawArrow(arrow) {
     const adjustedToy = toy - headlen * Math.sin(angle);
 
     // スキルに基づいて色を設定
-    const arrowColor = skillColors[skill] || '#FF69B4'; // デフォルト色
+    const arrowColor = skillColors[agent][skill] || '#FF69B4'; // デフォルト色
+    console.log(agent, skill, skillColors[agent])
 
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);
