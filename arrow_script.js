@@ -7,6 +7,7 @@ const hoverImage = document.getElementById('hoverImage');
 
 let arrows = [];
 let activeAgents = [];
+let activeSkills = {};
 
 function getUrlParameter(name) {
     name = name.replace(/[$$]/, '\$$').replace(/[$$]/, '\$$');
@@ -22,6 +23,9 @@ if (config) {
     img.src = config.src;
     arrows = config.arrows;
     activeAgents = [...config.agents];
+    activeAgents.forEach(agent => {
+        activeSkills[agent] = [];
+    });
     createAgentIcons(config.agents);
 } else {
     console.error('Invalid image ID');
@@ -34,7 +38,30 @@ function createAgentIcons(agents) {
         icon.alt = agent;
         icon.classList.add('agentIcon', 'active');
         icon.onclick = () => toggleAgent(agent, icon);
-        agentIconsContainer.appendChild(icon);
+
+        const div = document.createElement('div');
+        div.classList.add('agentContent');
+        div.display = 'flex';
+        div.flex_direction = 'column';
+        const skillIcons = document.createElement('div');
+        skillIcons.id = 'skillIcons-' + agent;
+        skillIcons.classList.add('skillIcons')
+        div.appendChild(icon);
+
+        Object.keys(skillData[agent]).forEach(key => {
+            skill = skillData[agent][key];
+            const skillIcon = document.createElement('img');
+            skillIcon.src = skill.icon;
+            skillIcon.alt = agent + '-' + skill;
+            skillIcon.classList.add('skillIcon', 'active', key);
+            skillIcon.id = 'skillIcon-' + agent + '-' + key;
+            skillIcon.onclick = () => toggleSkill(agent, key, skillIcon, true);
+            skillIcon.style.border = 'thin solid ' + skillData[agent][key]['color'];
+            skillIcons.appendChild(skillIcon);
+            activeSkills[agent].push(key);
+        });
+        div.appendChild(skillIcons);
+        agentIconsContainer.appendChild(div);
     });
 }
 
@@ -46,7 +73,25 @@ function toggleAgent(agent, icon) {
         activeAgents.push(agent);
         icon.classList.add('active');
     }
+    Object.keys(skillData[agent]).forEach(key => {
+        skill = skillData[agent][key];
+        skillIcon = document.getElementById('skillIcon-' + agent + '-' + key);
+
+        toggleSkill(agent, key, skillIcon, false);
+    });
     drawArrows();
+}
+function toggleSkill(agent, key, skillIcon, redraw) {
+    if (activeSkills[agent].includes(key)) {
+        activeSkills[agent] = activeSkills[agent].filter(s => s !== key);
+        skillIcon.classList.remove('active');
+    } else {
+        activeSkills[agent].push(key);
+        skillIcon.classList.add('active');
+    }
+    if(redraw){
+        drawArrows();
+    }
 }
 let originalWidth, originalHeight;
 
@@ -72,7 +117,7 @@ function drawArrows() {
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
     
-    arrows.filter(arrow => activeAgents.includes(arrow.agent)).forEach(arrow => {
+    arrows.filter(arrow => activeSkills[arrow.agent].includes(arrow.skill)).forEach(arrow => {
         const scaledArrow = {
             fromx: arrow.fromx * scaleX,
             fromy: arrow.fromy * scaleY,
@@ -95,7 +140,7 @@ function drawArrow(arrow) {
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
 	const scale = Math.min(scaleX, scaleY)
-    const {fromx, fromy, tox, toy, hover, skill} = arrow;
+    const {fromx, fromy, tox, toy, hover, skill, agent} = arrow;
     const headlen = 20 * scale;
     const angle = Math.atan2(toy-fromy, tox-fromx);
 
@@ -103,7 +148,8 @@ function drawArrow(arrow) {
     const adjustedToy = toy - headlen * Math.sin(angle);
 
     // スキルに基づいて色を設定
-    const arrowColor = skillColors[skill] || '#FF69B4'; // デフォルト色
+    const arrowColor = skillColors[agent][skill] || '#FF69B4'; // デフォルト色
+    console.log(agent, skill, skillColors[agent])
 
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);

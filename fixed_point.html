@@ -42,11 +42,28 @@
         .agentIcon {
             width: 70px;
             height: 70px;
-            margin: 0 10px 10px 0;
+            margin: 0 10px 10px 10px;
+            cursor: pointer;
+            opacity: 0.45;
+            background-color: #3c3c3c;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .agentIcon.active {
+            opacity: 1;
+        }
+        .skillIcons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+        .skillIcon {
+            width: 20px;
+            height: 20px;
+            margin: 2px 2px 2px 2px;
             cursor: pointer;
             opacity: 0.45;
         }
-        .agentIcon.active {
+        .skillIcon.active {
             opacity: 1;
         }
         #hoverImage {
