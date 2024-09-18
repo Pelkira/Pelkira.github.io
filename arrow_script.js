@@ -34,7 +34,10 @@ function createAgentIcons(agents) {
         icon.alt = agent;
         icon.classList.add('agentIcon', 'active');
         icon.onclick = () => toggleAgent(agent, icon);
-        agentIconsContainer.appendChild(icon);
+
+        const div = document.createElement('div');
+        div.appendChild(icon)
+        agentIconsContainer.appendChild(div);
     });
 }
 
