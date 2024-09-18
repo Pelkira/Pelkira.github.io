@@ -56,7 +56,7 @@ function createAgentIcons(agents) {
             skillIcon.classList.add('skillIcon', 'active', key);
             skillIcon.id = 'skillIcon-' + agent + '-' + key;
             skillIcon.onclick = () => toggleSkill(agent, key, skillIcon, true);
-            skillIcon.style.border = 'thin solid ' + skillData[agent][key]['color'];
+            skillIcon.style.borderBottom = 'medium solid ' + skillData[agent][key]['color'];
             skillIcons.appendChild(skillIcon);
             activeSkills[agent].push(key);
         });
