@@ -1,0 +1,108 @@
+:root {
+	--pastel-pink: rgb(204, 46, 41);
+	--pastel-blue: rgb(40, 155, 134);
+}
+
+body {
+	background-color: #121212;
+	color: #ffffff;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.gallery {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.image-container {
+	position: relative;
+	width: calc(50% - 10px);
+}
+
+.bg_dark img{
+	display: block;
+	opacity: 0.65;
+  }
+
+.image-link {
+	display: block;
+	position: relative;
+	text-decoration: none;
+	color: inherit;
+}
+
+img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.center-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.center-text p {
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+	color: #ffffff;
+	text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
+}
+
+.overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 20%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.left .overlay {
+	background: linear-gradient(to bottom,
+			transparent 0%,
+			transparent 5%,
+			var(--pastel-pink) 30%,
+			var(--pastel-pink) 100%);
+}
+
+.right .overlay {
+	background: linear-gradient(to bottom,
+			transparent 0%,
+			transparent 5%,
+			var(--pastel-blue) 30%,
+			var(--pastel-blue) 100%);
+}
+
+.overlay p {
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	transform: translateY(10%);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}

@@ -3,7 +3,10 @@ const canvas = document.getElementById('arrowCanvas');
 const ctx = canvas.getContext('2d');
 const agentIconsContainer = document.getElementById('agentIcons');
 const hoverImageContainer = document.getElementById('hoverImageContainer');
+
 const hoverImage = document.getElementById('hoverImage');
+const imagePopup = document.getElementById('imagePopup');
+const popupImage = document.getElementById('popupImage');
 
 let arrows = [];
 let activeAgents = [];
@@ -315,3 +318,13 @@ function isPointOnLine(x1, y1, x2, y2, px, py, tolerance) {
 
 	return distance <= tolerance;
 }
+
+
+hoverImage.addEventListener('click', function() {
+    popupImage.src = this.src;
+    imagePopup.style.display = 'flex';
+});
+
+imagePopup.addEventListener('click', function() {
+    this.style.display = 'none';
+});
