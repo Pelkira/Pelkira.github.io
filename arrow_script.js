@@ -172,7 +172,7 @@ function drawArrows() {
             url: arrow.url,
             hoverImage: arrow.hoverImage
         };
-        if(activeSkills[arrow.agent].includes(arrow.key)){
+        if(isSkillActive(arrow.agent, arrow.key)){
             drawArrow(scaledArrow);
         }
     });
@@ -225,6 +225,10 @@ function drawArrow(arrow) {
     }	
 }
 
+function isSkillActive(agent, key){
+    return activeSkills[agent].includes(key);
+}
+
 canvas.onmousemove = function(e) {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -233,8 +237,9 @@ canvas.onmousemove = function(e) {
     const scaleY = canvas.height / originalHeight;
 	console.log(x / scaleX, y / scaleY);
 
+
     let hoveredArrows = arrows.filter(arrow => 
-        activeAgents.includes(arrow.agent) &&
+        isSkillActive(arrow.agent, arrow.key) &&
         isPointOnLine(
             arrow.fromx * scaleX, arrow.fromy * scaleY, 
             arrow.tox * scaleX, arrow.toy * scaleY, 
@@ -274,7 +279,7 @@ canvas.onclick = function(e) {
 
 
     let clickedArrows = arrows.filter(arrow => 
-        activeAgents.includes(arrow.agent) &&
+        isSkillActive(arrow.agent, arrow.key) &&
         isPointOnLine(
             arrow.fromx * scaleX, arrow.fromy * scaleY, 
             arrow.tox * scaleX, arrow.toy * scaleY, 
