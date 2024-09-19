@@ -164,12 +164,12 @@ function drawArrows() {
             tox: arrow.tox * scaleX,
             toy: arrow.toy * scaleY,
             hover: arrow.hover,
-            skill: arrow.skill,
+            key: arrow.key,
             agent: arrow.agent,
             url: arrow.url,
             hoverImage: arrow.hoverImage
         };
-        if(activeSkills[arrow.agent].includes(arrow.skill)){
+        if(activeSkills[arrow.agent].includes(arrow.key)){
             drawArrow(scaledArrow);
         }
     });
@@ -182,7 +182,7 @@ function drawArrow(arrow) {
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
 	const scale = Math.min(scaleX, scaleY)
-    const {fromx, fromy, tox, toy, hover, skill, agent} = arrow;
+    const {fromx, fromy, tox, toy, hover, key, agent} = arrow;
     const headlen = 20 * scale;
     const angle = Math.atan2(toy-fromy, tox-fromx);
 
@@ -190,7 +190,7 @@ function drawArrow(arrow) {
     const adjustedToy = toy - headlen * Math.sin(angle);
 
     // スキルに基づいて色を設定
-    const arrowColor = skillColors[agent][skill] || '#FF69B4'; // デフォルト色
+    const arrowColor = skillColors[agent][key] || '#FF69B4'; // デフォルト色
 
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);
