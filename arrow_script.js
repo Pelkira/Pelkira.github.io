@@ -231,7 +231,7 @@ canvas.onmousemove = function(e) {
     const y = e.clientY - rect.top;
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
-	console.log(x / scaleX, y / scaleY)
+	console.log(x / scaleX, y / scaleY);
 
     let hoveredArrows = arrows.filter(arrow => 
         activeAgents.includes(arrow.agent) &&
