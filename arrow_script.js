@@ -117,7 +117,6 @@ function drawArrows() {
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
     console.log("arrows: " + arrows);
-    console.log("activeSkills[arrow_.agent]: " + activeSkills[arrow_.agent]);
     console.log("arrows.filter(arrow_ => activeSkills[arrow_.agent].includes(arrow_.skill)): " + arrows.filter(arrow_ => activeSkills[arrow_.agent].includes(arrow_.skill)));
 
     arrows.filter(arrow_ => activeSkills[arrow_.agent].includes(arrow_.skill)).forEach(arrow => {
