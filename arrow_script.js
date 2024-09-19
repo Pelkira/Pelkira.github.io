@@ -89,6 +89,7 @@ function toggleSkill(agent, key, skillIcon, redraw) {
         activeSkills[agent].push(key);
         skillIcon.classList.add('active');
     }
+    console.log(activeSkills[agent]);
     if(redraw){
         drawArrows();
     }
@@ -116,10 +117,8 @@ function drawArrows() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const scaleX = canvas.width / originalWidth;
     const scaleY = canvas.height / originalHeight;
-    console.log("arrows: " + arrows);
-    console.log("arrows.filter(arrow_ => activeSkills[arrow_.agent].includes(arrow_.skill)): " + arrows.filter(arrow_ => activeSkills[arrow_.agent].includes(arrow_.skill)));
-
-    arrows.filter(arrow_ => activeSkills[arrow_.agent].includes(arrow_.skill)).forEach(arrow => {
+    console.log("Active Agents: ", activeAgents);
+    arrows.forEach(arrow => {
         const scaledArrow = {
             fromx: arrow.fromx * scaleX,
             fromy: arrow.fromy * scaleY,
@@ -131,7 +130,9 @@ function drawArrows() {
             url: arrow.url,
             hoverImage: arrow.hoverImage
         };
-        drawArrow(scaledArrow);
+        if(activeSkills[arrow.agent].includes(arrow.skill)){
+            drawArrow(scaledArrow);
+        }
     });
 }
 
@@ -151,7 +152,6 @@ function drawArrow(arrow) {
 
     // スキルに基づいて色を設定
     const arrowColor = skillColors[agent][skill] || '#FF69B4'; // デフォルト色
-    console.log(agent, skill, skillColors[agent])
 
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);
