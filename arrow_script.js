@@ -36,8 +36,9 @@ function createAgentIcons(agents) {
         const icon = document.createElement('img');
         icon.src = agentIcons[agent];
         icon.alt = agent;
+        icon.id = "agentIcon-" + agent;
         icon.classList.add('agentIcon', 'active');
-        icon.onclick = () => toggleAgent(agent, icon);
+        icon.onclick = () => toggleAgent(agent);
 
         const div = document.createElement('div');
         div.classList.add('agentContent');
@@ -55,7 +56,7 @@ function createAgentIcons(agents) {
             skillIcon.alt = agent + '-' + skill;
             skillIcon.classList.add('skillIcon', 'active', key);
             skillIcon.id = 'skillIcon-' + agent + '-' + key;
-            skillIcon.onclick = () => toggleSkill(agent, key, skillIcon, true);
+            skillIcon.onclick = () => toggleSkill(agent, key, true);
             skillIcon.style.borderBottom = 'medium solid ' + skillData[agent][key]['color'];
             skillIcons.appendChild(skillIcon);
             activeSkills[agent].push(key);
@@ -65,45 +66,70 @@ function createAgentIcons(agents) {
     });
 }
 
-function toggleAgent(agent, icon) {
+function getAgentIcon(agent){
+    return document.getElementById("agentIcon-" + agent);
+}
+
+function getSkillIcon(agent, key){
+    return document.getElementById('skillIcon-' + agent + '-' + key);
+}
+
+function toggleAgent(agent) {
     hasActivated = false;
     if (activeAgents.includes(agent)) {
-        activeAgents = activeAgents.filter(a => a !== agent);
-        icon.classList.remove('active');
+        deactivateAgent(agent);
     } else {
-        activeAgents.push(agent);
-        icon.classList.add('active');
+        activateAgent(agent);
         hasActivated = true;
     }
     Object.keys(skillData[agent]).forEach(key => {
         skill = skillData[agent][key];
-        skillIcon = document.getElementById('skillIcon-' + agent + '-' + key);
         if(hasActivated){
-            activateSkill(agent, key, skillIcon);
+            activateSkill(agent, key);
         }
         else{
-            deactivateSkill(agent, key, skillIcon);
+            deactivateSkill(agent, key);
         }
     });
     drawArrows();
 }
-function toggleSkill(agent, key, skillIcon, redraw) {
+function toggleSkill(agent, key, redraw) {
+    console.log(agent, key, activeSkills[agent]);
     if (activeSkills[agent].includes(key)) {
-        deactivateSkill(agent, key, skillIcon);
+        deactivateSkill(agent, key);
     } else {
-        activateSkill(agent, key, skillIcon);
+        activateSkill(agent, key);
+    }
+    
+    if(activeSkills[agent].length == 0 && activeAgents.includes(agent)){
+        deactivateAgent(agent);
+    }
+    if(activeSkills[agent].length != 0 && !activeAgents.includes(agent)){
+        activateAgent(agent);
     }
     if(redraw){
         drawArrows();
     }
 }
 
-function activateSkill(agent, key, skillIcon){
+function activateAgent(agent){
+    activeAgents.push(agent);
+    agentIcon = getAgentIcon(agent);
+    agentIcon.classList.add('active');
+}
+function deactivateAgent(agent){
+    activeAgents = activeAgents.filter(a => a !== agent);
+    agentIcon = getAgentIcon(agent);
+    agentIcon.classList.remove('active');
+}
+function activateSkill(agent, key){
     activeSkills[agent].push(key);
+    skillIcon = getSkillIcon(agent, key);
     skillIcon.classList.add('active');
 }
-function deactivateSkill(agent, key, skillIcon){
+function deactivateSkill(agent, key){
     activeSkills[agent] = activeSkills[agent].filter(s => s !== key);
+    skillIcon = getSkillIcon(agent, key);
     skillIcon.classList.remove('active');
 }
 
