@@ -46,7 +46,7 @@ const imageConfigs = {
         src: "maps/Pearl_def.png",
         arrows: [
             {fromx: 0, fromy: 150, tox: 200, toy: 150, url: 'https://example.net', agent: 'viper', key: 'C', hoverImage: 'path/to/hover_image3.jpg'},
-            {fromx: 645, fromy: 555, tox: 498, toy: 480, url: 'https://www.notion.so/pelkira/B-1-way-8288ae9cee304f8fb80aa8987dfc5e10', agent: 'viper', key: 'Q', hoverImage: 'arrows/pearl/viper/00_link1way.jpeg'},
+            {fromx: 643, fromy: 548, tox: 498, toy: 480, url: 'https://www.notion.so/pelkira/B-1-way-8288ae9cee304f8fb80aa8987dfc5e10', agent: 'viper', key: 'Q', hoverImage: 'arrows/pearl/viper/00_link1way.jpeg'},
             {fromx: 50, fromy: 250, tox: 200, toy: 250, url: 'https://example.net', agent: 'viper', key: 'E', hoverImage: 'path/to/hover_image3.jpg'}
         ],
         agents: ['viper']
