@@ -40,23 +40,12 @@ const agentIcons = {
     'Viper': 'agents/viper.png',
 };
 
-const skillColors = {
-    'Sova': {
-        'Q': '#69b4FF',
-        'E': '#FFa040',
-    },
-    'Viper':{
-        'C': '#bcffb4',
-        'Q': '#69FFb4',
-        'E': '#78ff69',
-    }
-};
-
 const skillData = {
     'Sova': {
         'Q': {
             color: '#69b4FF',
-            icon: 'skills/Sova-Q.png'
+            hoverColor: '#FF69B4',
+            icon: 'skills/Sova-Q.png',
         },
         'E': {
             color: '#FFa040',
@@ -65,15 +54,15 @@ const skillData = {
     },
     'Viper': {
         'C': {
-            color: '#bcffb4',
+            color: '#C3DD06',
             icon: 'skills/Viper-C.png'
         },
         'Q': {
-            color: '#69FFb4',
+            color: '#73C822',
             icon: 'skills/Viper-Q.png'
         },
         'E': {
-            color: '#78ff69',
+            color: '#029881',
             icon: 'skills/Viper-E.png'
         }
     }

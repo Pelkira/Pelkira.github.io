@@ -192,13 +192,15 @@ function drawArrow(arrow) {
     const adjustedTox = tox - headlen * Math.cos(angle);
     const adjustedToy = toy - headlen * Math.sin(angle);
 
-    // スキルに基づいて色を設定
-    const arrowColor = skillColors[agent][key] || '#FF69B4'; // デフォルト色
+    const arrowColor = skillData[agent][key]['color'] || '#aaaaaa'; // デフォルト色
+    const hoverColor = skillData[agent][key]['hoverColor'] || '#00FFFF';
+
+
 
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);
     ctx.lineTo(adjustedTox, adjustedToy);
-    ctx.strokeStyle = hover ? '#00FFFF' : arrowColor;
+    ctx.strokeStyle = hover ? hoverColor : arrowColor;
     ctx.lineWidth = 4 * scale;
     ctx.stroke();
 
@@ -207,11 +209,11 @@ function drawArrow(arrow) {
     ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/6), toy-headlen*Math.sin(angle-Math.PI/6));
     ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/6), toy-headlen*Math.sin(angle+Math.PI/6));
     ctx.closePath();
-    ctx.fillStyle = hover ? '#00FFFF' : arrowColor;
+    ctx.fillStyle = hover ? hoverColor : arrowColor;
     ctx.fill();
 
     if (hover) {
-        ctx.shadowColor = '#00FFFF';
+        ctx.shadowColor = hoverColor;
         ctx.shadowBlur = 20 * scale;
         ctx.fill();
         ctx.shadowBlur = 0;
