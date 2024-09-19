@@ -37,7 +37,7 @@ if (config) {
 function createAgentIcons(agents) {
     agents.forEach(agent => {
         const icon = document.createElement('img');
-        icon.src = agentIcons[agent];
+        icon.src = getAgentIconPath(agent);
         icon.alt = agent;
         icon.id = "agentIcon-" + agent;
         icon.classList.add('agentIcon', 'active');
@@ -55,7 +55,7 @@ function createAgentIcons(agents) {
         Object.keys(skillData[agent]).forEach(key => {
             skill = skillData[agent][key];
             const skillIcon = document.createElement('img');
-            skillIcon.src = skill.icon;
+            skillIcon.src = getSkillIconPath(agent, key);
             skillIcon.alt = agent + '-' + skill;
             skillIcon.classList.add('skillIcon', 'active', key);
             skillIcon.id = 'skillIcon-' + agent + '-' + key;
@@ -69,11 +69,11 @@ function createAgentIcons(agents) {
     });
 }
 
-function getAgentIcon(agent){
+function getAgentIconElement(agent){
     return document.getElementById("agentIcon-" + agent);
 }
 
-function getSkillIcon(agent, key){
+function getSkillIconElement(agent, key){
     return document.getElementById('skillIcon-' + agent + '-' + key);
 }
 
@@ -117,22 +117,22 @@ function toggleSkill(agent, key, redraw) {
 
 function activateAgent(agent){
     activeAgents.push(agent);
-    agentIcon = getAgentIcon(agent);
+    agentIcon = getAgentIconElement(agent);
     agentIcon.classList.add('active');
 }
 function deactivateAgent(agent){
     activeAgents = activeAgents.filter(a => a !== agent);
-    agentIcon = getAgentIcon(agent);
+    agentIcon = getAgentIconElement(agent);
     agentIcon.classList.remove('active');
 }
 function activateSkill(agent, key){
     activeSkills[agent].push(key);
-    skillIcon = getSkillIcon(agent, key);
+    skillIcon = getSkillIconElement(agent, key);
     skillIcon.classList.add('active');
 }
 function deactivateSkill(agent, key){
     activeSkills[agent] = activeSkills[agent].filter(s => s !== key);
-    skillIcon = getSkillIcon(agent, key);
+    skillIcon = getSkillIconElement(agent, key);
     skillIcon.classList.remove('active');
 }
 
